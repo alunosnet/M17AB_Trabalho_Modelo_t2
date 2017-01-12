@@ -1,0 +1,59 @@
+﻿Funcionalidades:
+	Dois perfis: administrador e utilizador
+	Masterpage
+	index.aspx (publica, lista dos livros disponíveis, login,menu, detalhes dos livros)
+	registo.aspx (publica, adicionar utilizador com estado=0 com recaptcha)
+	logout.aspx (termina a sessão)
+	areaadmin.aspx (dashboard gerir utilizadores, livros, estatísticas, devolução de livros, enviar emails livros emprestados não devolvidos)
+	areacliente.aspx (requisitar livros, histórico de requisições)
+
+Base de dados: 
+	M_17AB_2016_2017
+
+Tabelas:
+	Utilizadores(email - PK,nome,password,perfil,estado)		perfil=1/0 utilizador/admin estado=1/0 ativo/não ativo
+	Livros(nlivro, nome, ano,data_aquisicao,preco,estado)
+	Emprestimos(nemprestimo,nlivro,idutilizador,data_emprestimo,data_devolve,estado)
+
+Scripts:
+create table utilizadores(
+	id int identity primary key,
+	email varchar(100) not null,
+	nome varchar(100) not null,
+	morada varchar(100) not null,
+	nif varchar(9) not null check(len(nif)=9),
+	password varchar(64) not null,
+	estado int not null,
+	perfil int not null
+);
+CREATE TABLE [dbo].[Livros]
+(
+	[nlivro] INT NOT NULL PRIMARY KEY identity,
+	nome varchar(100),
+	ano int,
+	data_aquisicao date,
+	preco decimal(4,2),
+	estado bit
+)
+CREATE TABLE [dbo].[Emprestimos]
+(
+	[nemprestimo] INT NOT NULL PRIMARY KEY identity,
+	nlivro int,
+	idutilizador int,
+	data_emprestimo date,
+	data_devolve date,
+	estado bit,
+	foreign key (nlivro) references Livros(nlivro),
+	foreign key (idutilizador) references Utilizadores(id)
+)
+
+create index iemprestimos_nlivros on emprestimos(nlivro)
+create index iemprestimos_idutilizador on emprestimos(idutilizador)
+create index iemprestimos_estado on emprestimos(estado)
+
+Criar o admin:
+INSERT INTO utilizadores(email,nome,morada,nif,password,estado,perfil)
+VALUES ('admin@gmail.com','admin','viseu','123123123',HASHBYTES('SHA2_512','12345'),1,0)
+
+testar login:
+select * from utilizadores where email='admin@gmail.com' and password=HASHBYTES('SHA2_512','12345')
