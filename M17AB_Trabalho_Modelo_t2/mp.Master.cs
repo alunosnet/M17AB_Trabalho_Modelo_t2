@@ -11,7 +11,23 @@ namespace M17AB_Trabalho_Modelo_t2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //testar se existe o cookie
+            HttpCookie cookie = Request.Cookies["avisoTurno2"] as HttpCookie;
+            if (cookie != null)
+                div_aviso.Visible = false;
+        }
 
+        protected void btCookie_Click(object sender, EventArgs e)
+        {
+            Guid g = Guid.NewGuid();
+            //criar o cookie
+            HttpCookie cookie = new HttpCookie("avisoTurno2", g.ToString());
+            //definir o prazo
+            cookie.Expires = DateTime.Now.AddYears(1);
+            //enviar o cookie
+            Response.Cookies.Add(cookie);
+            //esconder o aviso
+            div_aviso.Visible = false;
         }
     }
 }

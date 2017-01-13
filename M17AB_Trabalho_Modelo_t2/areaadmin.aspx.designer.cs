@@ -10,51 +10,33 @@
 namespace M17AB_Trabalho_Modelo_t2 {
     
     
-    public partial class mp {
+    public partial class areaadmin {
         
         /// <summary>
-        /// head control.
+        /// btLivros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Button btLivros;
         
         /// <summary>
-        /// form1 control.
+        /// btUtilizadores control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Button btUtilizadores;
         
         /// <summary>
-        /// ContentPlaceHolder1 control.
+        /// btEmprestimos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
-        
-        /// <summary>
-        /// div_aviso control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_aviso;
-        
-        /// <summary>
-        /// btCookie control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btCookie;
+        protected global::System.Web.UI.WebControls.Button btEmprestimos;
     }
 }

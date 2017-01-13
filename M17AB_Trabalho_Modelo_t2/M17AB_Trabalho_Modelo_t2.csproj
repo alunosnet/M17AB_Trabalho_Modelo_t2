@@ -64,6 +64,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="areaadmin.aspx" />
+    <Content Include="areacliente.aspx" />
+    <Content Include="css\site.css" />
+    <Content Include="index.aspx" />
     <Content Include="packages.config" />
     <Content Include="css\bootstrap-theme.css.map" />
     <Content Include="css\bootstrap-theme.min.css.map" />
@@ -95,8 +99,29 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="areaadmin.aspx.cs">
+      <DependentUpon>areaadmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="areaadmin.aspx.designer.cs">
+      <DependentUpon>areaadmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="areacliente.aspx.cs">
+      <DependentUpon>areacliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="areacliente.aspx.designer.cs">
+      <DependentUpon>areacliente.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BaseDados.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="mp.Master.cs">
       <DependentUpon>mp.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
