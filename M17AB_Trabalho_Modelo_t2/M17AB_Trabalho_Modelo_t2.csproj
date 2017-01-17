@@ -67,6 +67,7 @@
     <Content Include="areaadmin.aspx" />
     <Content Include="areacliente.aspx" />
     <Content Include="css\site.css" />
+    <Content Include="editarlivro.aspx" />
     <Content Include="index.aspx" />
     <Content Include="packages.config" />
     <Content Include="css\bootstrap-theme.css.map" />
@@ -96,6 +97,7 @@
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery-3.1.1.min.js" />
     <Content Include="js\npm.js" />
+    <Content Include="removerlivro.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +116,13 @@
       <DependentUpon>areacliente.aspx</DependentUpon>
     </Compile>
     <Compile Include="BaseDados.cs" />
+    <Compile Include="editarlivro.aspx.cs">
+      <DependentUpon>editarlivro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="editarlivro.aspx.designer.cs">
+      <DependentUpon>editarlivro.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
@@ -131,6 +140,16 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReCaptcha.cs" />
+    <Compile Include="removerlivro.aspx.cs">
+      <DependentUpon>removerlivro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="removerlivro.aspx.designer.cs">
+      <DependentUpon>removerlivro.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Imagens\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
