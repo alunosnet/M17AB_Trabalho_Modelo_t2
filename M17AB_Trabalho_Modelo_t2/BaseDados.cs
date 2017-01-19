@@ -7,7 +7,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-
+namespace M17AB_Trabalho_Modelo_t2
+{
     public class BaseDados
     {
         private static BaseDados instance;
@@ -105,7 +106,7 @@ using System.Web;
             {
                 Console.Write(erro.Message);
                 //throw erro;
-                 return false;
+                return false;
             }
             return true;
         }
@@ -160,7 +161,7 @@ using System.Web;
             };
             return executaComando(sql, parametros);
         }
-        public bool registarUtilizador(string email, string nome, string morada, string nif, string password,int estado, int perfil)
+        public bool registarUtilizador(string email, string nome, string morada, string nif, string password, int estado, int perfil)
         {
             string sql = "INSERT INTO utilizadores(email,nome,morada,nif,password,estado,perfil) ";
             sql += "VALUES (@email,@nome,@morada,@nif,HASHBYTES('SHA2_512',@password),@estado,@perfil)";
@@ -180,7 +181,7 @@ using System.Web;
         {
             string sql = @"UPDATE utilizadores SET email=@email,nome=@nome,morada=@morada,nif=@nif 
                             WHERE id=@id";
-            
+
             List<SqlParameter> parametros = new List<SqlParameter>()
             {
                 new SqlParameter() {ParameterName="@email",SqlDbType=SqlDbType.VarChar,Value=email },
@@ -377,7 +378,7 @@ using System.Web;
             {
                 new SqlParameter() {ParameterName="@idutilizador",SqlDbType=SqlDbType.Int,Value=nleitor }
             };
-            return devolveConsulta(sql,parametros);
+            return devolveConsulta(sql, parametros);
         }
 
         public DataTable listaEmprestimosPorConcluir(int nleitor)
@@ -405,7 +406,7 @@ using System.Web;
             string sql = "SELECT * FROM Emprestimos where data_devolve<getdate()";
             return devolveConsulta(sql);
         }
-        public void adicionarEmprestimo(int nlivro,int nleitor,DateTime dataDevolve)
+        public void adicionarEmprestimo(int nlivro, int nleitor, DateTime dataDevolve)
         {
             string sql = "SELECT * FROM livros WHERE nlivro=@nlivro";
             List<SqlParameter> parametrosBloquear = new List<SqlParameter>()
@@ -415,7 +416,7 @@ using System.Web;
             //iniciar transação
             SqlTransaction transacao = ligacaoBD.BeginTransaction(IsolationLevel.Serializable);
             DataTable dados = devolveConsulta(sql, parametrosBloquear, transacao);
-            
+
             try
             {
                 //alterar estado do livro
@@ -425,7 +426,7 @@ using System.Web;
                     new SqlParameter() {ParameterName="@nlivro",SqlDbType=SqlDbType.Int,Value=nlivro },
                     new SqlParameter() {ParameterName="@estado",SqlDbType=SqlDbType.Int,Value=0 },
                 };
-                executaComando(sql, parametrosUpdate,transacao);
+                executaComando(sql, parametrosUpdate, transacao);
                 //registar empréstimo
                 sql = @"INSERT INTO Emprestimos(nlivro,idutilizador,data_emprestimo,data_devolve,estado) 
                             VALUES (@nlivro,@idutilizador,@data_emprestimo,@data_devolve,@estado)";
@@ -437,10 +438,11 @@ using System.Web;
                     new SqlParameter() {ParameterName="@data_devolve",SqlDbType=SqlDbType.Date,Value=dataDevolve },
                     new SqlParameter() {ParameterName="@estado",SqlDbType=SqlDbType.Int,Value=1 },
                 };
-                executaComando(sql, parametrosInsert,transacao);
+                executaComando(sql, parametrosInsert, transacao);
                 //concluir transação
                 transacao.Commit();
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 transacao.Rollback();
             }
@@ -500,3 +502,4 @@ using System.Web;
         }
         #endregion
     }
+}

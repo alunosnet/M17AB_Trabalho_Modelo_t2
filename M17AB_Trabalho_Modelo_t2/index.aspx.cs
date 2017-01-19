@@ -12,7 +12,8 @@ namespace M17AB_Trabalho_Modelo_t2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //esconder div login
+            //listar livros disponíveis para emprestimo
         }
 
         protected void Button1_Click(object sender, EventArgs e)

@@ -10,87 +10,69 @@
 namespace M17AB_Trabalho_Modelo_t2 {
     
     
-    public partial class editarlivro {
+    public partial class registo {
         
         /// <summary>
-        /// tbNomeLivro control.
+        /// tbEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbNomeLivro;
+        protected global::System.Web.UI.WebControls.TextBox tbEmail;
         
         /// <summary>
-        /// tbAno control.
+        /// tbNome control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbAno;
+        protected global::System.Web.UI.WebControls.TextBox tbNome;
         
         /// <summary>
-        /// tbData control.
+        /// tbMorada control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbData;
+        protected global::System.Web.UI.WebControls.TextBox tbMorada;
         
         /// <summary>
-        /// tbPreco control.
+        /// tbNIF control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPreco;
+        protected global::System.Web.UI.WebControls.TextBox tbNIF;
         
         /// <summary>
-        /// imgCapa control.
+        /// tbPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgCapa;
+        protected global::System.Web.UI.WebControls.TextBox tbPassword;
         
         /// <summary>
-        /// fuCapa control.
+        /// lbErro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuCapa;
+        protected global::System.Web.UI.WebControls.Label lbErro;
         
         /// <summary>
-        /// btEditarLivro control.
+        /// btRegistar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btEditarLivro;
-        
-        /// <summary>
-        /// btCancelar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btCancelar;
-        
-        /// <summary>
-        /// lbErroLivro control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbErroLivro;
+        protected global::System.Web.UI.WebControls.Button btRegistar;
     }
 }
