@@ -38,6 +38,45 @@
             <asp:Label ID="lbErroLivro" runat="server" Text=""></asp:Label>
         </div>
     </div>
-    <div id="divUtilizadores" runat="server"></div>
+    <div id="divUtilizadores" runat="server">
+        <div class="container">
+            <h1>Utilizadores</h1>
+            <asp:GridView ID="gvUtilizadores" runat="server" CssClass="table table-responsive"></asp:GridView>
+            <h1>Adicionar</h1>
+            <div class="form-group">
+                <label for="tbEmail">Email</label>
+                <asp:TextBox ID="tbEmail" runat="server" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="tbNomeUtilizador">Nome</label>
+                <asp:TextBox ID="tbNomeUtilizador" runat="server" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="tbMorada">Morada</label>
+                <asp:TextBox ID="tbMorada" runat="server" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="tbNIF">NIF</label>
+                <asp:TextBox ID="tbNIF" runat="server" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="tbPassword">Password</label>
+                <asp:TextBox ID="tbPassword" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="cbEstado">Estado</label>
+                <asp:CheckBox ID="cbEstado" runat="server" CssClass="form-control"></asp:CheckBox>
+            </div>
+            <div class="form-group">
+                <label for="ddPerfil">Perfil</label>
+                <asp:DropDownList ID="ddPerfil" runat="server" CssClass="form-control">
+                    <asp:ListItem Value="0">Administrador</asp:ListItem>
+                    <asp:ListItem Value="1" Selected="True">Cliente</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+            <asp:Button ID="btAdicionarUtilizador" runat="server" CssClass="btn btn-info" Text="Adicionar" OnClick="btAdicionarUtilizador_Click" />
+            <asp:Label ID="lbErroUtilizador" runat="server"></asp:Label>
+        </div>
+    </div>
     <div id="divEmprestimos" runat="server"></div>
 </asp:Content>

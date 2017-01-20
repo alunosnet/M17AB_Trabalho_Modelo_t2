@@ -6,6 +6,7 @@
         Email<asp:TextBox ID="tbEmail" runat="server" CssClass="form-control" ></asp:TextBox><br />
         Password<asp:TextBox ID="tbPassword" runat="server" CssClass="form-control" TextMode="Password" /><br />
         <asp:Button CssClass="btn" ID="Button1" runat="server" Text="Login" OnClick="Button1_Click"/>
+        <asp:Button CssClass="btn" ID="btRecuperarPass" runat="server" Text="Recuperar Password" OnClick="btRecuperarPass_Click" />
         <asp:Label ID="lbErro" runat="server" Text=""></asp:Label>
     </div>
 </asp:Content>

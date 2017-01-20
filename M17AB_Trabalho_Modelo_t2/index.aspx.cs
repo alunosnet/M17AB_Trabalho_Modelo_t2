@@ -36,5 +36,10 @@ namespace M17AB_Trabalho_Modelo_t2
             else
                 Response.Redirect("areacliente.aspx");
         }
+
+        protected void btRecuperarPass_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
