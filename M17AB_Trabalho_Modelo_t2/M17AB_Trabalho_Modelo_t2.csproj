@@ -68,6 +68,7 @@
     <Content Include="areacliente.aspx" />
     <Content Include="css\site.css" />
     <Content Include="editarlivro.aspx" />
+    <Content Include="historicoLeitor.aspx" />
     <Content Include="index.aspx" />
     <Content Include="logout.aspx" />
     <Content Include="packages.config" />
@@ -127,6 +128,13 @@
       <DependentUpon>editarlivro.aspx</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
+    <Compile Include="historicoLeitor.aspx.cs">
+      <DependentUpon>historicoLeitor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="historicoLeitor.aspx.designer.cs">
+      <DependentUpon>historicoLeitor.aspx</DependentUpon>
+    </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -49,7 +49,7 @@ namespace M17AB_Trabalho_Modelo_t2
             }
             if (e.CommandName == "histórico")
             {
-                //todo
+                Response.Redirect("historicoLeitor.aspx?id=" + id);
             }
         }
 
@@ -312,7 +312,38 @@ namespace M17AB_Trabalho_Modelo_t2
         #region Empréstimos
         protected void btEmprestimos_Click(object sender, EventArgs e)
         {
+            Response.CacheControl = "no-cache";
+            divLivros.Visible = false;
+            divUtilizadores.Visible = false;
+            divEmprestimos.Visible = true;
+            btLivros.CssClass = "btn btn-info";
+            btUtilizadores.CssClass = "btn btn-info";
+            btEmprestimos.CssClass = "btn btn-info active";
+            atualizaGrelhaEmprestimos();
+            atualizaDropDownsEmprestimos();
+        }
 
+        private void atualizaDropDownsEmprestimos()
+        {
+            //leitores
+            DataTable leitores = BaseDados.Instance.listaUtilizadoresDisponiveis();
+            foreach(DataRow leitor in leitores.Rows)
+            {
+                ddLeitorEmprestar.Items.Add(new ListItem(leitor[1].ToString(),
+                    leitor[0].ToString()));
+            }
+            //livros
+            DataTable livros = BaseDados.Instance.listaLivrosDisponiveis();
+            foreach(DataRow livro in livros.Rows)
+            {
+                ddLivroEmprestar.Items.Add(new ListItem(livro[1].ToString(),
+                    livro[0].ToString()));
+            }
+        }
+
+        private void atualizaGrelhaEmprestimos()
+        {
+            
         }
 
         #endregion

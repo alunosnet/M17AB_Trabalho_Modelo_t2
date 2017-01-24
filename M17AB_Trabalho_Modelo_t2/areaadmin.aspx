@@ -78,5 +78,24 @@
             <asp:Label ID="lbErroUtilizador" runat="server"></asp:Label>
         </div>
     </div>
-    <div id="divEmprestimos" runat="server"></div>
+    <div id="divEmprestimos" runat="server">
+        <h2>Empréstimos</h2>
+        <div class="form-control">
+            <label for="cbEmprestimosPorConcluir">Listar só empréstimos por concluir</label>
+            <asp:CheckBox ID="cbEmprestimosPorConcluir" runat="server" />
+        </div>
+        <asp:GridView id="gvEmprestimos" runat="server" CssClass="table table-responsive"></asp:GridView>
+        <h2>Registar Empréstimo</h2>
+        <div class="form-control">
+            Livro a emprestar:<asp:DropDownList runat="server" ID="ddLivroEmprestar"></asp:DropDownList>
+        </div>
+        <div class="form-control">
+            Leitor: <asp:DropDownList runat="server" ID="ddLeitorEmprestar"></asp:DropDownList>
+        </div>
+        <div class="form-control">
+            Data devolução:<asp:Calendar runat="server" ID="clDataDevolve"></asp:Calendar>
+        </div>
+        <asp:Button runat="server" ID="btAdicionarEmprestimo" Text="Adicionar" />
+        <asp:Label runat="server" ID="lbErroEmprestimo" ></asp:Label>
+    </div>
 </asp:Content>
