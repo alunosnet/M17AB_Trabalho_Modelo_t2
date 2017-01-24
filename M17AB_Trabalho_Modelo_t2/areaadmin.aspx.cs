@@ -32,10 +32,25 @@ namespace M17AB_Trabalho_Modelo_t2
             gvUtilizadores.RowCancelingEdit += new GridViewCancelEditEventHandler(this.gvUtilizadores_RowCancelingEdit);
             gvUtilizadores.RowUpdating += new GridViewUpdateEventHandler(this.gvUtilizadores_RowUpdating);
             gvUtilizadores.RowCreated += new GridViewRowEventHandler(this.gvUtilizadores_RowCreated);
-
+            gvUtilizadores.RowCommand += new GridViewCommandEventHandler(this.gvUtilizadores_RowCommand);
             //para manter formatação
             if (divLivros.Visible)
                 atualizaGrelhaLivros();
+        }
+
+        private void gvUtilizadores_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int linha = int.Parse(e.CommandArgument as string);
+            int id = int.Parse(gvUtilizadores.Rows[linha].Cells[3].Text);
+            if(e.CommandName== "ativarDesativar")
+            {
+                BaseDados.Instance.ativarDesativarUtilizador(id);
+                atualizaGrelhaUtilizadores();
+            }
+            if (e.CommandName == "histórico")
+            {
+                //todo
+            }
         }
 
         private void gvUtilizadores_RowCreated(object sender, GridViewRowEventArgs e)

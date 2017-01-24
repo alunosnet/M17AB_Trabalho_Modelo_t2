@@ -16,7 +16,21 @@ namespace M17AB_Trabalho_Modelo_t2
 
         protected void btPassword_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                //guid
+                string guid = Server.UrlDecode(Request["id"].ToString());
+                //nova password
+                string novapassword = tbPassword.Text;
+                if (novapassword == String.Empty)
+                    throw new Exception("Password não pode ficar vazia");
+                BaseDados.Instance.atualizarPassword(guid, novapassword);
+                Response.Redirect("index.aspx");
+            }catch(Exception erro)
+            {
+                lbErro.Text = "Ocorreu o seguinte erro: " + erro.Message;
+                lbErro.CssClass = "alert alert-danger";
+            }
         }
     }
 }

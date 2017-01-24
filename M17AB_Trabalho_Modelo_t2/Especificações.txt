@@ -26,6 +26,10 @@ create table utilizadores(
 	estado int not null,
 	perfil int not null
 );
+
+alter table utilizadores
+add lnkRecuperar varchar(36);
+
 CREATE TABLE [dbo].[Livros]
 (
 	[nlivro] INT NOT NULL PRIMARY KEY identity,
