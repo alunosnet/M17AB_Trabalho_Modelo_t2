@@ -260,6 +260,38 @@ namespace M17AB_Trabalho_Modelo_t2
             };
             return executaComando(sql, parametros);
         }
+        public void recuperarPassword(string email, string guid)
+        {
+            string sql = "UPDATE utilizadores set lnkRecuperar=@lnk WHERE email=@email";
+
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@email",SqlDbType=SqlDbType.VarChar,Value=email },
+                new SqlParameter() {ParameterName="@lnk",SqlDbType=SqlDbType.VarChar,Value=guid },
+            };
+            executaComando(sql, parametros);
+        }
+        public void atualizarPassword(string guid, string password)
+        {
+            string sql = "UPDATE utilizadores set password=HASHBYTES('SHA2_512',@password),estado=1 WHERE lnkRecuperar=@lnk";
+
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@password",SqlDbType=SqlDbType.VarChar,Value=password},
+                new SqlParameter() {ParameterName="@lnk",SqlDbType=SqlDbType.VarChar,Value=guid },
+            };
+            executaComando(sql, parametros);
+        }
+        public DataTable devolveDadosUtilizador(string email)
+        {
+            string sql = "SELECT * FROM utilizadores WHERE email=@email";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@email",SqlDbType=SqlDbType.VarChar,Value=email }
+            };
+            DataTable dados = devolveConsulta(sql, parametros);
+            return dados;
+        }
         #endregion
 
         #region livros

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -39,7 +40,39 @@ namespace M17AB_Trabalho_Modelo_t2
 
         protected void btRecuperarPass_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (tbEmail.Text == String.Empty)
+                {
+                    throw new Exception("Tem de indicar um email");
+                }
+                //verificar se o email existe
+                string email = tbEmail.Text;
+                DataTable dados = BaseDados.Instance.devolveDadosUtilizador(email);
+                if(dados==null || dados.Rows.Count == 0)
+                {
+                    throw new Exception("O email indicado não existe");
+                }
+                //GUID
+                Guid g = Guid.NewGuid();
 
+                //guardar na bd
+                BaseDados.Instance.recuperarPassword(email, g.ToString());
+                //enviar email com link
+                //dominio/recuperar_password.aspx?id=guid
+                string assunto = "Clique no link para recuperar a sua password.\n";
+                assunto += "<a href='http://" + Request.Url.Authority + "/recuperar_password.aspx?id=" + Server.UrlEncode(g.ToString())+"'>Clique aqui</a>";
+                string senha = ConfigurationManager.AppSettings["senha"].ToString();
+
+                Helper.enviarMail("alunosnet@gmail.com", senha, email,
+                    "Recuperação de palavra passe", assunto);
+                lbErro.Text = "Foi enviado um email de recuperação";
+                lbErro.CssClass = "alert alert-sucess";
+            }catch(Exception erro)
+            {
+                lbErro.Text = "Ocorreu o seguinte erro: " + erro.Message;
+                lbErro.CssClass = "alert alert-danger";
+            }
         }
     }
 }
