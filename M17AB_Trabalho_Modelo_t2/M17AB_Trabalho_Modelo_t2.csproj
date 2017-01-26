@@ -67,6 +67,7 @@
     <Content Include="areaadmin.aspx" />
     <Content Include="areacliente.aspx" />
     <Content Include="css\site.css" />
+    <Content Include="detalhesLivro.aspx" />
     <Content Include="editarlivro.aspx" />
     <Content Include="historicoLeitor.aspx" />
     <Content Include="index.aspx" />
@@ -120,6 +121,13 @@
       <DependentUpon>areacliente.aspx</DependentUpon>
     </Compile>
     <Compile Include="BaseDados.cs" />
+    <Compile Include="detalhesLivro.aspx.cs">
+      <DependentUpon>detalhesLivro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="detalhesLivro.aspx.designer.cs">
+      <DependentUpon>detalhesLivro.aspx</DependentUpon>
+    </Compile>
     <Compile Include="editarlivro.aspx.cs">
       <DependentUpon>editarlivro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

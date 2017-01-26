@@ -14,7 +14,40 @@ namespace M17AB_Trabalho_Modelo_t2
         protected void Page_Load(object sender, EventArgs e)
         {
             //esconder div login
+            if (Session["perfil"] != null)
+                div_login.Visible = false;
             //listar livros disponíveis para emprestimo
+            if (!IsPostBack)
+            {
+                DataTable dados = BaseDados.Instance.devolveConsulta("SELECT nlivro,nome,preco FROM Livros WHERE estado=1");
+                atualizaDivLivros(dados);
+            }
+        }
+
+        private void atualizaDivLivros(DataTable dados)
+        {
+
+            if (dados == null || dados.Rows.Count == 0)
+            {
+                div_livros.InnerHtml = "";
+                return;
+            }
+
+            string grelha = "<div class='container-fluid'>";
+            grelha += "<div class='row'>";
+
+            foreach(DataRow livro in dados.Rows)
+            {
+                grelha += "<div class='col-md-4 text-center'>";
+                grelha += "<img src='/Imagens/" + livro[0].ToString() + ".jpg' class='img-responsive'/>";
+                grelha += "<span class='stat-title'>" + livro[1].ToString() + "</span>";
+                grelha += "<span class='stat-title'>" + String.Format(" | {0:C}",Decimal.Parse(livro[2].ToString())) + "</span>";
+                grelha += "<br/><a href='detalhesLivro.aspx?id=" + livro[0].ToString() + "'>Detalhes</a>";
+                grelha += "</div>";
+            }
+
+            grelha += "</div></div>";
+            div_livros.InnerHtml = grelha;
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -73,6 +106,13 @@ namespace M17AB_Trabalho_Modelo_t2
                 lbErro.Text = "Ocorreu o seguinte erro: " + erro.Message;
                 lbErro.CssClass = "alert alert-danger";
             }
+        }
+
+        protected void btPesquisa_Click(object sender, EventArgs e)
+        {
+            string livro = tbPesquisa.Text;
+            DataTable dados = BaseDados.Instance.pesquisaLivrosPeloNome(livro);
+            atualizaDivLivros(dados);
         }
     }
 }

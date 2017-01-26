@@ -80,22 +80,22 @@
     </div>
     <div id="divEmprestimos" runat="server">
         <h2>Empréstimos</h2>
-        <div class="form-control">
+        <div class="form-group">
             <label for="cbEmprestimosPorConcluir">Listar só empréstimos por concluir</label>
-            <asp:CheckBox ID="cbEmprestimosPorConcluir" runat="server" />
+            <asp:CheckBox ID="cbEmprestimosPorConcluir" runat="server" AutoPostBack="true" OnCheckedChanged="cbEmprestimosPorConcluir_CheckedChanged" />
         </div>
         <asp:GridView id="gvEmprestimos" runat="server" CssClass="table table-responsive"></asp:GridView>
         <h2>Registar Empréstimo</h2>
-        <div class="form-control">
+        <div class="form-group">
             Livro a emprestar:<asp:DropDownList runat="server" ID="ddLivroEmprestar"></asp:DropDownList>
         </div>
-        <div class="form-control">
+        <div class="form-group">
             Leitor: <asp:DropDownList runat="server" ID="ddLeitorEmprestar"></asp:DropDownList>
         </div>
-        <div class="form-control">
+        <div class="form-group">
             Data devolução:<asp:Calendar runat="server" ID="clDataDevolve"></asp:Calendar>
         </div>
-        <asp:Button runat="server" ID="btAdicionarEmprestimo" Text="Adicionar" />
+        <asp:Button runat="server" ID="btAdicionarEmprestimo" Text="Adicionar" OnClick="btAdicionarEmprestimo_Click" />
         <asp:Label runat="server" ID="lbErroEmprestimo" ></asp:Label>
     </div>
 </asp:Content>

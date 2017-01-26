@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -36,7 +37,23 @@ namespace M17AB_Trabalho_Modelo_t2
             //para manter formatação
             if (divLivros.Visible)
                 atualizaGrelhaLivros();
+
+            gvEmprestimos.RowCommand += new GridViewCommandEventHandler(this.gvEmprestimos_RowCommand);
+
+            //testar parametro da div visivel
+            if(Request["divVisivel"]!=null)
+            {
+                string ndiv = Request["divVisivel"].ToString();
+                if (ndiv == "1")
+                {
+                    divLivros.Visible = true;
+                    atualizaGrelhaLivros();
+                }
+                //testar as restantes divs
+            }
         }
+
+
 
         private void gvUtilizadores_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -325,11 +342,13 @@ namespace M17AB_Trabalho_Modelo_t2
 
         private void atualizaDropDownsEmprestimos()
         {
+            ddLeitorEmprestar.Items.Clear();
+            ddLivroEmprestar.Items.Clear();
             //leitores
             DataTable leitores = BaseDados.Instance.listaUtilizadoresDisponiveis();
             foreach(DataRow leitor in leitores.Rows)
             {
-                ddLeitorEmprestar.Items.Add(new ListItem(leitor[1].ToString(),
+                ddLeitorEmprestar.Items.Add(new ListItem(leitor[2].ToString(),
                     leitor[0].ToString()));
             }
             //livros
@@ -343,9 +362,82 @@ namespace M17AB_Trabalho_Modelo_t2
 
         private void atualizaGrelhaEmprestimos()
         {
-            
+            gvEmprestimos.Columns.Clear();
+            gvEmprestimos.DataSource = null;
+            gvEmprestimos.DataBind();
+            DataTable dados;
+
+            if (cbEmprestimosPorConcluir.Checked)
+                dados = BaseDados.Instance.listaTodosEmprestimosPorConcluirComNomes();
+            else
+                dados = BaseDados.Instance.listaTodosEmprestimosComNomes();
+
+            if (dados == null || dados.Rows.Count == 0) return;
+
+            //definir coluna para receber livro
+            ButtonField btReceberLivro = new ButtonField();
+            btReceberLivro.HeaderText = "Receber livro";
+            btReceberLivro.Text = "Receber livro";
+            btReceberLivro.ButtonType = ButtonType.Button;
+            btReceberLivro.CommandName = "receberlivro";
+            gvEmprestimos.Columns.Add(btReceberLivro);
+
+            //definir coluna para enviar email
+            ButtonField btEmail = new ButtonField();
+            btEmail.HeaderText = "Email";
+            btEmail.Text = "Enviar Email";
+            btEmail.ButtonType = ButtonType.Button;
+            btEmail.CommandName = "enviaremail";
+            gvEmprestimos.Columns.Add(btEmail);
+
+            gvEmprestimos.DataSource = dados;
+            gvEmprestimos.AutoGenerateColumns = true;
+
+            gvEmprestimos.DataBind();
+        }
+        //regista um empréstimo novo
+        protected void btAdicionarEmprestimo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime data = clDataDevolve.SelectedDate;
+                int idLivro = int.Parse(ddLivroEmprestar.SelectedValue);
+                int idLeitor = int.Parse(ddLeitorEmprestar.SelectedValue);
+                BaseDados.Instance.adicionarEmprestimo(idLivro, idLeitor, data);
+                atualizaGrelhaEmprestimos();
+                atualizaDropDownsEmprestimos();
+            }catch(Exception erro)
+            {
+                lbErroEmprestimo.Text = "Ocorreu o seguinte erro: " + erro.Message;
+                lbErroEmprestimo.CssClass = "alert alert-danger";
+            }
+        }
+        protected void cbEmprestimosPorConcluir_CheckedChanged(object sender, EventArgs e)
+        {
+            atualizaGrelhaEmprestimos();
         }
 
+        private void gvEmprestimos_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int linha = int.Parse(e.CommandArgument as string);
+            int id = int.Parse(gvEmprestimos.Rows[linha].Cells[2].Text);
+            if (e.CommandName == "receberlivro")
+            {
+                BaseDados.Instance.concluirEmprestimo(id);
+                atualizaGrelhaEmprestimos();
+                atualizaDropDownsEmprestimos();
+            }
+            if (e.CommandName == "enviaremail")
+            {
+                DataTable dadosEmprestimo = BaseDados.Instance.devolveDadosEmprestimo(id);
+                int idUtilizador = int.Parse(dadosEmprestimo.Rows[0]["idutilizador"].ToString());
+                DataTable dadosUtilizador = BaseDados.Instance.devolveDadosUtilizador(idUtilizador);
+                string email = dadosUtilizador.Rows[0]["email"].ToString();
+                string password = ConfigurationManager.AppSettings["senha"].ToString();
+                Helper.enviarMail("alunosnet@gmail.com", password, email, "Livro emprestado",
+                    "Caro leitor deve devolver o livro que tem emprestado");
+            }
+        }
         #endregion
 
     }

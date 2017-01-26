@@ -36,7 +36,7 @@ namespace M17AB_Trabalho_Modelo_t2
                     imgCapa.Width = 100;
                 }catch(Exception erro)
                 {
-                    Response.Redirect("areaadmin.aspx");
+                    Response.Redirect("areaadmin.aspx?divVisivel=1");
                 }
             }
         }
@@ -56,12 +56,12 @@ namespace M17AB_Trabalho_Modelo_t2
             {
 
             }
-            Response.Redirect("areaadmin.aspx");
+            Response.Redirect("areaadmin.aspx?divVisivel=1");
         }
         //cancelar
         protected void Button2_Click(object sender, EventArgs e)
         {
-            Response.Redirect("areaadmin.aspx");
+            Response.Redirect("areaadmin.aspx?divVisivel=1");
         }
     }
 }

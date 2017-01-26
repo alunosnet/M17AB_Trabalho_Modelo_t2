@@ -35,6 +35,7 @@ namespace M17AB_Trabalho_Modelo_t2
                 //registar
                 BaseDados.Instance.registarUtilizador(email, nome, morada, nif, password);
                 Response.Redirect("index.aspx");
+
             }catch(Exception erro)
             {
                 lbErro.Text = "Ocorreu o seguinte erro: " + erro.Message;
