@@ -61,3 +61,8 @@ VALUES ('admin@gmail.com','admin','viseu','123123123',HASHBYTES('SHA2_512','1234
 
 testar login:
 select * from utilizadores where email='admin@gmail.com' and password=HASHBYTES('SHA2_512','12345')
+
+Top de leitores
+Top de livros
+Livros cujo prazo de devolução já passou
+Pessoas on-line

@@ -21,6 +21,7 @@ namespace M17AB_Trabalho_Modelo_t2
                 divLivros.Visible = false;
                 divUtilizadores.Visible = false;
                 divEmprestimos.Visible = false;
+                divConsultas.Visible = false;
             }
             //grelha livros
             //paginação
@@ -133,9 +134,11 @@ namespace M17AB_Trabalho_Modelo_t2
             divLivros.Visible = true;
             divUtilizadores.Visible = false;
             divEmprestimos.Visible = false;
+            divConsultas.Visible = false;
             btLivros.CssClass = "btn btn-info active";
             btUtilizadores.CssClass = "btn btn-info";
             btEmprestimos.CssClass = "btn btn-info";
+            btConsultas.CssClass = "btn btn-info";
             atualizaGrelhaLivros();
         }
 
@@ -263,9 +266,11 @@ namespace M17AB_Trabalho_Modelo_t2
             divLivros.Visible = false;
             divUtilizadores.Visible = true;
             divEmprestimos.Visible = false;
+            divConsultas.Visible = false;
             btLivros.CssClass = "btn btn-info";
             btUtilizadores.CssClass = "btn btn-info active";
             btEmprestimos.CssClass = "btn btn-info";
+            btConsultas.CssClass = "btn btn-info";
             atualizaGrelhaUtilizadores();
         }
 
@@ -333,9 +338,11 @@ namespace M17AB_Trabalho_Modelo_t2
             divLivros.Visible = false;
             divUtilizadores.Visible = false;
             divEmprestimos.Visible = true;
+            divConsultas.Visible = false;
             btLivros.CssClass = "btn btn-info";
             btUtilizadores.CssClass = "btn btn-info";
             btEmprestimos.CssClass = "btn btn-info active";
+            btConsultas.CssClass = "btn btn-info";
             atualizaGrelhaEmprestimos();
             atualizaDropDownsEmprestimos();
         }
@@ -440,5 +447,53 @@ namespace M17AB_Trabalho_Modelo_t2
         }
         #endregion
 
+        protected void ddEscolhaConsulta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            atualizaGrelhaConsultas();
+        }
+
+        protected void btConsultas_Click(object sender, EventArgs e)
+        {
+            Response.CacheControl = "no-cache";
+            divLivros.Visible = false;
+            divUtilizadores.Visible = false;
+            divEmprestimos.Visible = false;
+            divConsultas.Visible = true;
+            btLivros.CssClass = "btn btn-info";
+            btUtilizadores.CssClass = "btn btn-info";
+            btEmprestimos.CssClass = "btn btn-info";
+            btConsultas.CssClass = "btn btn-info active";
+            atualizaGrelhaConsultas();
+        }
+
+        private void atualizaGrelhaConsultas()
+        {
+            int iconsulta =int.Parse(ddEscolhaConsulta.SelectedValue);
+            DataTable dados;
+            string sql = "";
+            switch (iconsulta)
+            {
+                case 1: sql = @"SELECT nome,count(*) as n_emprestimos FROM emprestimos
+                                inner join utilizadores on emprestimos.idutilizador=utilizadores.id
+                                GROUP BY utilizadores.id,nome ORDER BY n_emprestimos DESC";
+                    break;
+                case 2:
+                    sql = @"SELECT nome,count(*) as n_emprestimos FROM emprestimos
+                                inner join livros on emprestimos.nlivro=livros.nlivro
+                                GROUP BY livros.nlivro,nome ORDER BY n_emprestimos DESC";
+                    break;
+                case 3:
+                    sql = @"SELECT utilizadores.nome,livros.nome,emprestimos.data_devolve
+                        FROM emprestimos inner join utilizadores on emprestimos.idutilizador=utilizadores.id
+                        inner join livros on livros.nlivro=emprestimos.nlivro 
+                        WHERE data_devolve<getdate() AND emprestimos.estado=1";
+                    break;
+                case 4:
+                    break;
+            }
+            dados = BaseDados.Instance.devolveConsulta(sql);
+            gvConsultas.DataSource = dados;
+            gvConsultas.DataBind();
+        }
     }
 }

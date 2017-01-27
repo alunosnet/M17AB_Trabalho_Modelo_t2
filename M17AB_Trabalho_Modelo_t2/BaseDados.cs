@@ -324,6 +324,15 @@ namespace M17AB_Trabalho_Modelo_t2
             };
             return devolveConsulta(sql, parametros);
         }
+        public DataTable listaLivrosComPrecoInferior(int nlivro)
+        {
+            string sql = "SELECT * FROM LIVROS where preco<=(select preco from livros where nlivro=@nlivro)";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@nlivro",SqlDbType=SqlDbType.Int,Value=nlivro }
+            };
+            return devolveConsulta(sql, parametros);
+        }
         public int adicionarLivro(string nome, int ano, DateTime data, decimal preco)
         {
             string sql = "INSERT INTO Livros (nome,ano,data_aquisicao,preco,estado) VALUES ";

@@ -8,6 +8,7 @@
         <asp:Button ID="btLivros" runat="server" Text="Gerir Livros" CssClass="btn btn-info" OnClick="btLivros_Click" />
         <asp:Button ID="btUtilizadores" runat="server" Text="Gerir Utilizadores" CssClass="btn btn-info" OnClick="btUtilizadores_Click" />
         <asp:Button ID="btEmprestimos" runat="server" Text="Gerir Empréstimos" CssClass="btn btn-info" OnClick="btEmprestimos_Click" />
+        <asp:Button ID="btConsultas" runat="server" Text="Consultas" CssClass="btn btn-info" OnClick="btConsultas_Click" />
     </div>
     <div id="divLivros" runat="server">
         <div class="container">
@@ -97,5 +98,14 @@
         </div>
         <asp:Button runat="server" ID="btAdicionarEmprestimo" Text="Adicionar" OnClick="btAdicionarEmprestimo_Click" />
         <asp:Label runat="server" ID="lbErroEmprestimo" ></asp:Label>
+    </div>
+    <div id="divConsultas" runat="server">
+        <asp:DropDownList runat="server" ID="ddEscolhaConsulta" AutoPostBack="true" OnSelectedIndexChanged="ddEscolhaConsulta_SelectedIndexChanged">
+            <asp:ListItem Value="1">Top de Leitores</asp:ListItem> 
+            <asp:ListItem Value="2">Top de Livros</asp:ListItem> 
+            <asp:ListItem Value="3">Empréstimos fora de prazo</asp:ListItem>
+            <asp:ListItem Value="4">Pessoas online</asp:ListItem>  
+        </asp:DropDownList>
+        <asp:GridView ID="gvConsultas" runat="server"></asp:GridView>
     </div>
 </asp:Content>

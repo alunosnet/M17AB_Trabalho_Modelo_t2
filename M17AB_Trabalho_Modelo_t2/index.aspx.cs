@@ -19,7 +19,17 @@ namespace M17AB_Trabalho_Modelo_t2
             //listar livros disponíveis para emprestimo
             if (!IsPostBack)
             {
-                DataTable dados = BaseDados.Instance.devolveConsulta("SELECT nlivro,nome,preco FROM Livros WHERE estado=1");
+                DataTable dados;
+                try
+                {
+                    HttpCookie cookie = Request.Cookies["ultimaEscolha"] as HttpCookie;
+                    int valor = int.Parse(cookie.Value);
+                    dados = BaseDados.Instance.listaLivrosComPrecoInferior(valor);
+                }
+                catch
+                {
+                    dados = BaseDados.Instance.devolveConsulta("SELECT nlivro,nome,preco FROM Livros WHERE estado=1");
+                }
                 atualizaDivLivros(dados);
             }
         }
@@ -41,7 +51,7 @@ namespace M17AB_Trabalho_Modelo_t2
                 grelha += "<div class='col-md-4 text-center'>";
                 grelha += "<img src='/Imagens/" + livro[0].ToString() + ".jpg' class='img-responsive'/>";
                 grelha += "<span class='stat-title'>" + livro[1].ToString() + "</span>";
-                grelha += "<span class='stat-title'>" + String.Format(" | {0:C}",Decimal.Parse(livro[2].ToString())) + "</span>";
+                grelha += "<span class='stat-title'>" + String.Format(" | {0:C}",Decimal.Parse(livro["preco"].ToString())) + "</span>";
                 grelha += "<br/><a href='detalhesLivro.aspx?id=" + livro[0].ToString() + "'>Detalhes</a>";
                 grelha += "</div>";
             }

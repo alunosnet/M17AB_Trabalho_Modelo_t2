@@ -24,6 +24,13 @@ namespace M17AB_Trabalho_Modelo_t2
                 string ficheiro = @"~\Imagens\" + dados.Rows[0]["nlivro"].ToString() + ".jpg";
                 imgCapa.ImageUrl = ficheiro;
                 imgCapa.Width = 200;
+
+                //criar um cookie com o id do livro
+                HttpCookie cookie = new HttpCookie("ultimaEscolha", id.ToString());
+                //definir prazo de 1 hora
+                cookie.Expires = DateTime.Now.AddHours(1);
+                //enviar cookie
+                Response.Cookies.Add(cookie);
             }
             catch
             {
