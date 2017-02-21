@@ -54,80 +54,12 @@ namespace M17AB_Trabalho_Modelo_t2
             }
         }
 
-
-
-        private void gvUtilizadores_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            int linha = int.Parse(e.CommandArgument as string);
-            int id = int.Parse(gvUtilizadores.Rows[linha].Cells[3].Text);
-            if(e.CommandName== "ativarDesativar")
-            {
-                BaseDados.Instance.ativarDesativarUtilizador(id);
-                atualizaGrelhaUtilizadores();
-            }
-            if (e.CommandName == "histórico")
-            {
-                Response.Redirect("historicoLeitor.aspx?id=" + id);
-            }
-        }
-
-        private void gvUtilizadores_RowCreated(object sender, GridViewRowEventArgs e)
-        {
-            //torna readonly a coluna do id
-            foreach(TableCell coluna in e.Row.Cells)
-            {
-                if(coluna.Text!="" && coluna.Text!="&nbsp;" && coluna.Text!="Ativar/Desativar"
-                    && coluna.Text != "Histórico")
-                {
-                    BoundField campo = (BoundField)((DataControlFieldCell)coluna).ContainingField;
-                    if (campo.DataField == "id" || campo.DataField == "estado" || campo.DataField == "perfil")
-                        campo.ReadOnly = true;
-                }
-            }
-        }
-
-        private void gvUtilizadores_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-            int linha = e.RowIndex;
-            int id = int.Parse(gvUtilizadores.Rows[linha].Cells[3].Text);
-            string nome = ((TextBox)gvUtilizadores.Rows[linha].Cells[4].Controls[0]).Text;
-            string email= ((TextBox)gvUtilizadores.Rows[linha].Cells[3].Controls[0]).Text;
-            string morada= ((TextBox)gvUtilizadores.Rows[linha].Cells[5].Controls[0]).Text;
-            string nif= ((TextBox)gvUtilizadores.Rows[linha].Cells[6].Controls[0]).Text;
-            BaseDados.Instance.atualizarUtilizador(id, nome, email, morada, nif);
-            gvUtilizadores.EditIndex = -1;
-            atualizaGrelhaUtilizadores();
-            
-        }
-
-        private void gvUtilizadores_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-        {
-            gvUtilizadores.EditIndex = -1;
-            atualizaGrelhaUtilizadores();
-        }
-
-        private void gvUtilizadores_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            int linha = e.NewEditIndex;
-            gvUtilizadores.EditIndex = linha;
-            atualizaGrelhaUtilizadores();
-        }
-
-        private void gvUtilizadores_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            int linha = e.RowIndex;
-            string id = gvUtilizadores.Rows[linha].Cells[3].Text;
-            BaseDados.Instance.removerUtilizador(int.Parse(id));
-            //atualizar grelha
-            atualizaGrelhaUtilizadores();
-        }
-
+        #region livros
         private void gvLivros_PageChanging(object sender, GridViewPageEventArgs e)
         {
             gvLivros.PageIndex = e.NewPageIndex;
             atualizaGrelhaLivros();
         }
-        #region livros
         protected void btLivros_Click(object sender, EventArgs e)
         {
             Response.CacheControl = "no-cache";
@@ -329,7 +261,71 @@ namespace M17AB_Trabalho_Modelo_t2
                 lbErroUtilizador.CssClass = "alert alert-danger";
             }
         }
+        private void gvUtilizadores_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int linha = int.Parse(e.CommandArgument as string);
+            int id = int.Parse(gvUtilizadores.Rows[linha].Cells[3].Text);
+            if (e.CommandName == "ativarDesativar")
+            {
+                BaseDados.Instance.ativarDesativarUtilizador(id);
+                atualizaGrelhaUtilizadores();
+            }
+            if (e.CommandName == "histórico")
+            {
+                Response.Redirect("historicoLeitor.aspx?id=" + id);
+            }
+        }
 
+        private void gvUtilizadores_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            //torna readonly a coluna do id
+            foreach (TableCell coluna in e.Row.Cells)
+            {
+                if (coluna.Text != "" && coluna.Text != "&nbsp;" && coluna.Text != "Ativar/Desativar"
+                    && coluna.Text != "Histórico")
+                {
+                    BoundField campo = (BoundField)((DataControlFieldCell)coluna).ContainingField;
+                    if (campo.DataField == "id" || campo.DataField == "estado" || campo.DataField == "perfil")
+                        campo.ReadOnly = true;
+                }
+            }
+        }
+
+        private void gvUtilizadores_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            int linha = e.RowIndex;
+            int id = int.Parse(gvUtilizadores.Rows[linha].Cells[3].Text);
+            string nome = ((TextBox)gvUtilizadores.Rows[linha].Cells[4].Controls[0]).Text;
+            string email = ((TextBox)gvUtilizadores.Rows[linha].Cells[3].Controls[0]).Text;
+            string morada = ((TextBox)gvUtilizadores.Rows[linha].Cells[5].Controls[0]).Text;
+            string nif = ((TextBox)gvUtilizadores.Rows[linha].Cells[6].Controls[0]).Text;
+            BaseDados.Instance.atualizarUtilizador(id, nome, email, morada, nif);
+            gvUtilizadores.EditIndex = -1;
+            atualizaGrelhaUtilizadores();
+
+        }
+
+        private void gvUtilizadores_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            gvUtilizadores.EditIndex = -1;
+            atualizaGrelhaUtilizadores();
+        }
+
+        private void gvUtilizadores_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            int linha = e.NewEditIndex;
+            gvUtilizadores.EditIndex = linha;
+            atualizaGrelhaUtilizadores();
+        }
+
+        private void gvUtilizadores_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int linha = e.RowIndex;
+            string id = gvUtilizadores.Rows[linha].Cells[3].Text;
+            BaseDados.Instance.removerUtilizador(int.Parse(id));
+            //atualizar grelha
+            atualizaGrelhaUtilizadores();
+        }
         #endregion
         #region Empréstimos
         protected void btEmprestimos_Click(object sender, EventArgs e)

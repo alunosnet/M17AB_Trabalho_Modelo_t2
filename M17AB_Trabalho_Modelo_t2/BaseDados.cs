@@ -47,7 +47,7 @@ namespace M17AB_Trabalho_Modelo_t2
             DataTable registos = new DataTable();
             SqlDataReader dados = comando.ExecuteReader();
             registos.Load(dados);
-            registos.Dispose();
+            dados.Dispose();
             comando.Dispose();
             return registos;
         }
@@ -58,7 +58,7 @@ namespace M17AB_Trabalho_Modelo_t2
             comando.Parameters.AddRange(parametros.ToArray());
             SqlDataReader dados = comando.ExecuteReader();
             registos.Load(dados);
-            registos.Dispose();
+            dados.Dispose();
             comando.Dispose();
             return registos;
         }
@@ -72,7 +72,7 @@ namespace M17AB_Trabalho_Modelo_t2
             comando.Parameters.AddRange(parametros.ToArray());
             SqlDataReader dados = comando.ExecuteReader();
             registos.Load(dados);
-            registos.Dispose();
+            dados.Dispose();
             comando.Dispose();
             return registos;
         }
